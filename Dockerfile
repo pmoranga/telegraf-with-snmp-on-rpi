@@ -1,7 +1,7 @@
 FROM hypriot/rpi-alpine-scratch:edge
 MAINTAINER Pedro <pmoranga@gmail.com>
 
-ENV TELEGRAF_VERSION 1.5.3
+ENV TELEGRAF_VERSION 1.7.3
 
 ADD https://dl.influxdata.com/telegraf/releases/telegraf-${TELEGRAF_VERSION}_linux_armhf.tar.gz /tmp/
 # https://dl.influxdata.com/telegraf/releases/telegraf-${TELEGRAF_VERSION}_linux_armhf.tar.gz
@@ -12,7 +12,7 @@ RUN cd /tmp \
 	&& rm -r /tmp/telegraf \
 	&& (telegraf config > /etc/telegraf/telegraf.conf)
 
-RUN apk update && apk add --no-cache net-snmp-tools
+RUN apk add --no-cache net-snmp-tools
 
 VOLUME /etc/telegraf
 
