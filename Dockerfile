@@ -1,6 +1,4 @@
-ARG distro=stretch
-FROM resin/rpi-raspbian:$distro
-
+FROM hypriot/rpi-alpine-scratch:edge
 MAINTAINER Pedro <pmoranga@gmail.com>
 
 ENV TELEGRAF_VERSION 1.7.3
@@ -14,9 +12,7 @@ RUN cd /tmp \
 	&& rm -r /tmp/telegraf \
 	&& (telegraf config > /etc/telegraf/telegraf.conf)
 
-RUN apt-get update && apt-get install -y snmp snmp-mibs-downloader --no-install-recommends && ( /usr/bin/download-mibs ; rm -rf /var/lib/apt/lists/* )
-
-ENV MIBDIRS /var/lib/snmp/mibs/iana:/var/lib/snmp/mibs/ietf:/usr/share/snmp/mibs/
+RUN apk add --no-cache net-snmp-tools
 
 VOLUME /etc/telegraf
 
